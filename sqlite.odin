@@ -262,6 +262,9 @@ foreign sqlite {
 	exec :: proc "c" (db: ^Connection, sql: cstring, cb: proc "c" (ctx: rawptr, argc: c.int, argv: [^]cstring, col_names: [^]cstring) -> c.int, ctx: rawptr, err: ^cstring) -> Result_Code ---
 	changes :: proc "c" (db: ^Connection) -> c.int ---
 	changes64 :: proc "c" (db: ^Connection) -> c.int64_t ---
+	errmsg :: proc "c" (db: ^Connection) -> cstring ---
+	extended_result_codes :: proc "c" (db: ^Connection, onoff: c.int) -> c.int ---
+	extended_errcode :: proc "c" (db: ^Connection) -> Result_Code ---
 	auto_extension :: proc "c" (x_entry_point: proc "c" ()) -> Result_Code ---
 	cancel_auto_extension :: proc "c" (x_entry_point: proc "c" ()) -> Result_Code ---
 	backup :: proc "c" (dest: ^Connection, dest_name: cstring, source: ^Connection, source_name: cstring) -> ^Backup ---
