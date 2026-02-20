@@ -232,6 +232,14 @@ write_struct_field_from_statement :: proc(
 		value := u64(sqlite3.column_int64(stmt, col_idx))
 		write_struct_field(obj, field^, value) or_return
 
+	case typeid_of(f32):
+		value := f32(sqlite3.column_double(stmt, col_idx))
+		write_struct_field(obj, field^, value) or_return
+
+	case typeid_of(f64):
+		value := f64(sqlite3.column_double(stmt, col_idx))
+		write_struct_field(obj, field^, value) or_return
+
 	case:
 		if reflect.is_enum(field.type) {
 			enum_values := reflect.enum_field_values(field.type.id)
